@@ -21,30 +21,27 @@ soup = BeautifulSoup(r.text, "html.parser")
 rows = soup.select("a.table-row")
 print(f"Gefundene rows: {len(rows)}")
 
-nation_points_total = {}
+nation_points = {}
 
 season_races = [
     127331, 127332, 127333, 127334, 127335, 127336, 127440, 127441, 127442, 127443, 127340, 127341, 127342, 127343, 127344
 ]
 
-for raceid in season_races:
-    race_url = f"https://www.fis-ski.com/DB/general/results.html?sectorcode=AL&raceid={raceid}"
-    r = requests.get(race_url, headers=headers)
-    soup = BeautifulSoup(r.text, "html.parser")
-    
-    rows = soup.select("a.table-row")
-    
-    for row in rows:
-        nation_el = row.select_one("span.country__name-short")
-        points_el = row.select_one("div.justify-right.hidden-xs")
-        
-        if not nation_el or not points_el:
-            continue
-        
-        nation = nation_el.get_text(strip=True)
-        points_text = "".join(c for c in points_el.get_text(strip=True) if c.isdigit())
-        points = int(points_text)
-        
-        nation_points_total[nation] = nation_points_total.get(nation, 0) + points
+for row in rows:
+    nation_el = row.select_one("span.country__name-short")
+    points_el = row.select_one("div.justify-right.hidden-xs")
 
-print(nation_points_total)
+    if not nation_el or not points_el:
+        continue
+
+    nation = nation_el.get_text(strip=True)
+    points_text = points_el.get_text(strip=True)
+
+    try:
+        points = int(points_text)
+    except:
+        continue
+
+    nation_points[nation] = nation_points.get(nation, 0) + points
+
+print(nation_points)
