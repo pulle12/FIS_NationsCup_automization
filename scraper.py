@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+import json
+import os
 
 race_url = "https://www.fis-ski.com/DB/general/results.html?sectorcode=AL&raceid=127331"
 
@@ -21,27 +23,30 @@ soup = BeautifulSoup(r.text, "html.parser")
 rows = soup.select("a.table-row")
 print(f"Gefundene rows: {len(rows)}")
 
-nation_points = {}
+nation_points_total = {}
 
 season_races = [
     127331, 127332, 127333, 127334, 127335, 127336, 127440, 127441, 127442, 127443, 127340, 127341, 127342, 127343, 127344
 ]
 
-for row in rows:
-    nation_el = row.select_one("span.country__name-short")
-    points_el = row.select_one("div.justify-right.hidden-xs")
-
-    if not nation_el or not points_el:
-        continue
-
-    nation = nation_el.get_text(strip=True)
-    points_text = points_el.get_text(strip=True)
-
-    try:
+for raceid in season_races:
+    url = f"https://www.fis-ski.com/DB/general/results.html?sectorcode=AL&raceid={raceid}"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "html.parser")
+    rows = soup.select("a.table-row")
+    for row in rows:
+        nation_el = row.select_one("span.country__name-short")
+        points_el = row.select_one("div.justify-right.hidden-xs")
+        if not nation_el or not points_el:
+            continue
+        nation = nation_el.get_text(strip=True)
+        points_text = "".join(c for c in points_el.get_text(strip=True) if c.isdigit())
         points = int(points_text)
-    except:
-        continue
+        nation_points_total[nation] = nation_points_total.get(nation, 0) + points
 
-    nation_points[nation] = nation_points.get(nation, 0) + points
+# Schreibe JSON-Datei in einen Ordner außerhalb
+output_path = os.path.join("..", "Projekt_Ski", "results.json")  # Pfad zu deinem Automate-Ordner
+with open(output_path, "w", encoding="utf-8") as f:
+    json.dump(nation_points_total, f, indent=4)
 
-print(nation_points)
+print(f"Results gespeichert in {output_path}")
