@@ -49,4 +49,4 @@ output_path = os.path.join("..", "Projekt_Ski", "results.json")  # Pfad zu deine
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(nation_points_total, f, indent=4)
 
-print(f"Results gespeichert in {output_path}")
+print(f"Results gespeichert in {output_path}") 
