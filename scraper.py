@@ -8,6 +8,8 @@ URL = baseURL + "/DB/alpine-skiing/calendar-results.html?eventselection=&place=&
 
 print('Scrapen von: ' + URL)
 
+nation_points = {}
+
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
@@ -18,13 +20,35 @@ with sync_playwright() as p:
     results = soup1.find_all(id='57999')
 
     element1 = page.query_selector("div.g-row a")
-    href1 = element1.get_attribute("href")
-    print('Scrapen von: ' + href1)
-    page.goto(href1)
+    href = element1.get_attribute("href")
+    print('Scrapen von: ' + href)
+    page.goto(href, wait_until="domcontentloaded")
+    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+    page.wait_for_timeout(2000)
     html2 = page.content()
-    element2 = page.query_selector("div.g-row a")
-    href2 = element2.get_attribute("href")
-    results = map()
+    rows = page.query_selector_all("a.table-row")
+    print("Gefundene rows:", len(rows))
+    for row in rows:
+        nation_el = row.query_selector("span.country__name-short")
 
+        points_el = row.query_selector("div.justify-right.hidden-xs.g-lg-2.g-md-2.g-sm-2")
+
+        if not nation_el or not points_el:
+            continue
+
+        nation = nation_el.inner_text().strip()
+        points_text = points_el.inner_text().strip()
+
+        try:
+            points = int(points_text)
+        except:
+            continue
+
+        # Map befüllen
+        if nation in nation_points:
+            nation_points[nation] += points
+        else:
+            nation_points[nation] = points
+    
+    print(nation_points)
     browser.close()
-
