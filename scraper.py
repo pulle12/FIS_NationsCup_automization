@@ -18,7 +18,7 @@ chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-nation_points_total = {}
+season_results_list = []
 
 # Deine IDs
 season_races = [
@@ -27,7 +27,7 @@ season_races = [
     127340, 127341, 127342, 127343, 127344
 ]
 
-print("Starte Scraping mit strenger Punkte-Filterung...")
+print("Starte Scraping pro Rennen mit strenger Punkte-Filterung...")
 
 try:
     for raceid in season_races:
@@ -41,6 +41,10 @@ try:
             )
         except:
             print(f"Race {raceid}: Keine Daten/Timeout.")
+            season_results_list.append({
+                "race_id": raceid,
+                "points": {} 
+            })
             continue
 
         soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -48,6 +52,8 @@ try:
         # Hol alle Zeilen
         rows = soup.select("a.table-row")
         print(f"Race {raceid}: Analysiere {len(rows)} Athleten...")
+
+        current_race_points = {}
 
         for row in rows:
             nation_el = row.select_one("span.country__name-short")
@@ -82,22 +88,21 @@ try:
             
             # Nur addieren, wenn Punkte > 0
             if points > 0:
-                nation_points_total[nation] = nation_points_total.get(nation, 0) + points
+                current_race_points[nation] = current_race_points.get(nation, 0) + points
+
+        print(f"Race {raceid}: {len(current_race_points)} Nationen gepunktet.")
+        
+        season_results_list.append({
+            "race_id": raceid,
+            "points": current_race_points
+        })
 
 finally:
     driver.quit()
 
-# Sortieren für schönere Ausgabe (optional)
-sorted_results = dict(sorted(nation_points_total.items(), key=lambda item: item[1], reverse=True))
-
-# Speichern
-output_dir = os.path.join("..", "Projekt_Ski")
-os.makedirs(output_dir, exist_ok=True)
-output_path = os.path.join(output_dir, "results.json")
+output_path = os.path.join("..", "Projekt_Ski", "results.json")
 
 with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(sorted_results, f, indent=4)
+    json.dump(season_results_list, f, indent=4)
 
 print(f"Fertig! Results gespeichert in {output_path}")
-print("Ergebnis-Vorschau (Top 5):")
-print(list(sorted_results.items())[:5])

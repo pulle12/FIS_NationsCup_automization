@@ -9,10 +9,11 @@ import json
 
 # --- KONFIGURATION ---
 '''EXCEL_PATH = r'C:\Users\summe\Documents\Office\Excel\ski_alpin_verlaeufe.xlsx'
-SHEET_NAME = '25-26_Py_exp''''
+SHEET_NAME = '25-26_Py_exp'''
 BASE_IMAGE_PATH = r'C:\Users\summe\Bilder\Sport\ski\manuel_feller.avif'
 OUTPUT_IMAGE_PATH = r'C:\Users\summe\Bilder\Sport\ski\ski_nationencup_25-26.png'
 file_path = "./results.json"
+
 # Wo soll das Diagramm auf dem Bild platziert werden? (Pixel Koordinaten)
 CHART_POS_X = -150
 CHART_POS_Y = 350
@@ -40,10 +41,23 @@ def update_wallpaper():
         # 2. Datei öffnen (Modus 'r' für read)
         with open(file_path, "r", encoding="utf-8") as f:
             # json.load verwandelt den Text aus der Datei zurück in ein Python-Dictionary
-            nation_points = json.load(f)
+            raw_data = json.load(f)
 
         print("✅ Daten erfolgreich geladen!\n")
-        
+
+        data_for_df = []
+
+        for entry in raw_data:
+            # entry sieht so aus: {'race_id': 123, 'points': {'AUT': 10...}}
+            row = entry['points'].copy() # Startet mit {'AUT': 10...}
+            row['RaceID'] = entry['race_id'] # Fügt ID hinzu: {'AUT': 10, 'RaceID': 123}
+            data_for_df.append(row)
+
+        df = pd.DataFrame(data_for_df)
+        if 'RaceID' in df.columns:
+            df.set_index('RaceID', inplace=True)
+        df = df.fillna(0)
+
         # 2. Plot vorbereiten
         plt.figure(figsize=(14, 10), dpi=120)
         plt.style.use('fivethirtyeight')
