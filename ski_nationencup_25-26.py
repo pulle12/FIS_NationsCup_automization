@@ -8,10 +8,8 @@ import sys
 import json
 
 # --- KONFIGURATION ---
-# EXCEL_PATH = r'C:\Users\summe\Documents\Office\Excel\ski_alpin_verlaeufe.xlsx'
-# SHEET_NAME = '25-26_Py_exp'
-BASE_IMAGE_PATH = r'C:\Users\summe\Bilder\Sport\ski\manuel_feller.avif'
-OUTPUT_IMAGE_PATH = r'C:\Users\summe\Bilder\Sport\ski\ski_nationencup_25-26.png'
+BASE_IMAGE_PATH = r'.\pics\manuel_feller.avif'
+OUTPUT_IMAGE_PATH = r'.\pics\ski_nationencup_25-26.png'
 file_path = "./results.json"
 
 # Wo soll das Diagramm auf dem Bild platziert werden? (Pixel Koordinaten)
