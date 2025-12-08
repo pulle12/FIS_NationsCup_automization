@@ -24,7 +24,9 @@ NATION_MAP = {
     "AUT": "Österreich", "SUI": "Schweiz", "NOR": "Norwegen", 
     "FRA": "Frankreich", "USA": "USA", "GER": "Deutschland", 
     "ITA": "Italien", "SWE": "Schweden", "CRO": "Kroatien",
-    "ALB": "Albanien", "CAN": "Kanada", "SLO": "Slowenien"
+    "ALB": "Albanien", "CAN": "Kanada", "SLO": "Slowenien",
+    "NZL": "Neuseeland", "BRA": "Brasilien", "BEL": "Belgien",
+    "GBR": "Großbritannien"
 }
 
 NATION_COLORS = {
@@ -36,7 +38,11 @@ NATION_COLORS = {
     "Deutschland": "#FFCC00",# Gold/Gelb (Schwarz sieht man schlecht)
     "Italien": "#009246",    # Grün
     "Schweden": "#FECC00",   # Gelb
-    "Kroatien": "#FF0000",
+    "Kroatien": "#323EBB",   
+    "Kanada": "#FF0000",
+    "Albanien": "#960909",
+    "Neuseeland": "#454EBA", 
+    "Brasilien": "#17C005", 
 }
 
 RACE_ID_TO_NAME = {
