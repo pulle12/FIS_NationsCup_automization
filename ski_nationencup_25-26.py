@@ -16,7 +16,7 @@ file_path = "./results.json"
 
 # Wo soll das Diagramm auf dem Bild platziert werden? (Pixel Koordinaten)
 CHART_POS_X = -150
-CHART_POS_Y = 350
+CHART_POS_Y = 150
 CHART_SIZE = (1900, 1300) # Breite, Höhe des Diagramms
 
 # Mapping von FIS-Code zu vollem Namen (für deine "wichtige" Liste)
