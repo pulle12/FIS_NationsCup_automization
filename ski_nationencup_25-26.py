@@ -5,32 +5,45 @@ from PIL import Image
 import os
 import time
 import sys
+import json
 
 # --- KONFIGURATION ---
-EXCEL_PATH = r'C:\Users\summe\Documents\Office\Excel\ski_alpin_verlaeufe.xlsx'
-SHEET_NAME = '25-26_Py_exp'
+'''EXCEL_PATH = r'C:\Users\summe\Documents\Office\Excel\ski_alpin_verlaeufe.xlsx'
+SHEET_NAME = '25-26_Py_exp''''
 BASE_IMAGE_PATH = r'C:\Users\summe\Bilder\Sport\ski\manuel_feller.avif'
 OUTPUT_IMAGE_PATH = r'C:\Users\summe\Bilder\Sport\ski\ski_nationencup_25-26.png'
-
+file_path = "./results.json"
 # Wo soll das Diagramm auf dem Bild platziert werden? (Pixel Koordinaten)
 CHART_POS_X = -150
 CHART_POS_Y = 350
 CHART_SIZE = (1700, 1300) # Breite, Höhe des Diagramms
 
 def update_wallpaper():
-    print("Lese Excel Daten...", end="")
+    # print("Lese Excel Daten...", end="")
 
+    # Sicherheits-Check: Existiert die Datei überhaupt?
+    if not os.path.exists(file_path):
+        print(f"FEHLER: Die Datei wurde unter '{file_path}' nicht gefunden.")
+        return
+        
     try:
         # 1. Excel laden
-        df = pd.read_excel(EXCEL_PATH, sheet_name=SHEET_NAME, usecols="A:Z")
+        # df = pd.read_excel(EXCEL_PATH, sheet_name=SHEET_NAME, usecols="A:Z")
 
         # Erste Spalte = Rennen
-        race_column = df.columns[0]
-        races = df[race_column].astype(str)
+        # race_column = df.columns[0]
+        # races = df[race_column].astype(str)
 
         # Alle Nationen (alle anderen Spalten)
-        nations = df.columns[1:]
+        # nations = df.columns[1:]
 
+        # 2. Datei öffnen (Modus 'r' für read)
+        with open(file_path, "r", encoding="utf-8") as f:
+            # json.load verwandelt den Text aus der Datei zurück in ein Python-Dictionary
+            nation_points = json.load(f)
+
+        print("✅ Daten erfolgreich geladen!\n")
+        
         # 2. Plot vorbereiten
         plt.figure(figsize=(14, 10), dpi=120)
         plt.style.use('fivethirtyeight')
