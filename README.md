@@ -4,7 +4,7 @@ Dieses Projekt ist eine vollautomatisierte Lösung, um den **FIS Ski Alpin Natio
 
 Es besteht aus einem robusten Web-Scraper, der Live-Daten der FIS-Webseite extrahiert, und einem Visualisierungs-Modul, das diese Daten in ästhetische Graphen verwandelt und direkt in das Desktop-Wallpaper integriert.
 
-![Preview Graph]("https://github.com/user-attachments/assets/f20790f4-3229-440f-be3e-53b035ba0f8c")
+![Preview Graph](https://github.com/user-attachments/assets/f20790f4-3229-440f-be3e-53b035ba0f8c)
 
 ## ✨ Features
 
