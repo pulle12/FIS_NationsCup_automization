@@ -41,8 +41,12 @@ NATION_COLORS = {
     "Albanien": "#960909",
     "Neuseeland": "#454EBA", 
     "Brasilien": "#17C005", 
+    "Slowenien": "#0066B2",
+    "Belgien": "#FFDD00",
+    "Großbritannien": "#00247D"
 }
 
+# Falls eine ID fehlt, zeigt der Code automatisch die Nummer an
 RACE_ID_TO_NAME = {
     "127331": "Sölden-RTL (W)",
     "127332": "Sölden-RTL (M)",
@@ -58,12 +62,12 @@ RACE_ID_TO_NAME = {
     "127341": "Beaver Creek-SG (M)",
     "127342": "Tremblant-RTL1 (W)",
     "127343": "Tremblant-RTL2 (W)",
-    "127344": "Beaver Creek-RTL (M)"
-    # Falls eine ID fehlt, zeigt der Code automatisch die Nummer an
+    "127344": "Beaver Creek-RTL (M)",
+    "127347": "Tremblant-SL (W)"
 }
 
 # Liste der Nationen, die beschriftet werden sollen (Namen müssen zum Mapping oben passen)
-wichtige = ["Österreich", "Schweiz", "Norwegen", "Frankreich", "USA", "Deutschland", "Italien", "Schweden", "Kroatien", "Kanada", "Albanien", "Neuseeland", "Brasilien"]
+wichtige = ["Österreich", "Schweiz", "Norwegen", "Frankreich", "USA", "Deutschland", "Italien", "Schweden", "Kroatien", "Kanada", "Albanien", "Neuseeland", "Brasilien", "Slowenien", "Belgien", "Großbritannien"]
 
 def update_wallpaper():
     # print("Lese Excel Daten...", end="")
