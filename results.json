@@ -277,5 +277,21 @@
             "AND": 5,
             "NZL": 2
         }
+    },
+    {
+        "race_id": 127348,
+        "points": {}
+    },
+    {
+        "race_id": 127350,
+        "points": {}
+    },
+    {
+        "race_id": 127349,
+        "points": {}
+    },
+    {
+        "race_id": 127351,
+        "points": {}
     }
 ]
