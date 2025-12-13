@@ -63,7 +63,11 @@ RACE_ID_TO_NAME = {
     "127342": "Tremblant-RTL1 (W)",
     "127343": "Tremblant-RTL2 (W)",
     "127344": "Beaver Creek-RTL (M)",
-    "127347": "Tremblant-SL (W)"
+    "127347": "St. Moritz-DH1(W)",
+    "127348": "St. Moritz-DH2 (W)",
+    "127350": "Val d'Isère-RTL (M)",
+    "127349": "St. Moritz-SG (W)",
+    "127351": "Val d'Isère-SL (M)"
 }
 
 # Liste der Nationen, die beschriftet werden sollen (Namen müssen zum Mapping oben passen)
