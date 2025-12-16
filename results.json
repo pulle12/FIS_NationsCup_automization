@@ -280,18 +280,109 @@
     },
     {
         "race_id": 127348,
-        "points": {}
+        "points": {
+            "GER": 118,
+            "USA": 180,
+            "ITA": 110,
+            "AUT": 155,
+            "NOR": 42,
+            "SUI": 55,
+            "SLO": 22,
+            "FRA": 23,
+            "CZE": 14
+        }
     },
     {
         "race_id": 127350,
-        "points": {}
+        "points": {
+            "SUI": 249,
+            "NOR": 94,
+            "AUT": 112,
+            "USA": 66,
+            "BRA": 36,
+            "ITA": 53,
+            "GER": 62,
+            "FRA": 25,
+            "SLO": 11,
+            "CRO": 7
+        }
     },
     {
         "race_id": 127349,
-        "points": {}
+        "points": {
+            "NZL": 100,
+            "FRA": 139,
+            "ITA": 143,
+            "USA": 99,
+            "SUI": 75,
+            "AUT": 88,
+            "NOR": 26,
+            "GER": 24,
+            "CZE": 15,
+            "BIH": 7,
+            "AND": 3,
+            "POL": 2,
+            "CAN": 2
+        }
     },
     {
         "race_id": 127351,
+        "points": {
+            "NOR": 245,
+            "SUI": 122,
+            "ITA": 86,
+            "AUT": 72,
+            "FRA": 88,
+            "GBR": 29,
+            "FIN": 22,
+            "CRO": 14,
+            "BUL": 12,
+            "BEL": 20
+        }
+    },
+    {
+        "race_id": 127352,
+        "points": {
+            "USA": 145,
+            "SUI": 160,
+            "GER": 60,
+            "AUT": 85,
+            "SWE": 73,
+            "ITA": 43,
+            "FRA": 39,
+            "LAT": 26,
+            "CAN": 28,
+            "SLO": 16,
+            "JPN": 15,
+            "NOR": 7
+        }
+    },
+    {
+        "race_id": 127339,
+        "points": {}
+    },
+    {
+        "race_id": 127357,
+        "points": {}
+    },
+    {
+        "race_id": 127360,
+        "points": {}
+    },
+    {
+        "race_id": 127356,
+        "points": {}
+    },
+    {
+        "race_id": 127361,
+        "points": {}
+    },
+    {
+        "race_id": 127362,
+        "points": {}
+    },
+    {
+        "race_id": 127363,
         "points": {}
     }
 ]

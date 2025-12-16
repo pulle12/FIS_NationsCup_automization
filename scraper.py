@@ -24,7 +24,7 @@ season_results_list = []
 season_races = [
     127331, 127332, 127333, 127334, 127335, 127336,
     127440, 127441, 127442, 127443,
-    127340, 127341, 127342, 127343, 127344, 127347, 127348, 127350, 127349, 127351
+    127340, 127341, 127342, 127343, 127344, 127347, 127348, 127350, 127349, 127351, 127352, 127339, 127357, 127360, 127356, 127361, 127362, 127363
 ]
 # Link für die FIS-Seite zum schnelleren Suchen und Hinzufügen neuer IDs: 
 # https://www.fis-ski.com/DB/alpine-skiing/calendar-results.html?eventselection=&place=&sectorcode=AL&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection=

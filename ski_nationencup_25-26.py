@@ -67,7 +67,15 @@ RACE_ID_TO_NAME = {
     "127348": "St. Moritz-DH2 (W)",
     "127350": "Val d'Isère-RTL (M)",
     "127349": "St. Moritz-SG (W)",
-    "127351": "Val d'Isère-SL (M)"
+    "127351": "Val d'Isère-SL (M)",
+    "127352": "Courchevel-SL (W)",
+    "127339": "Gröden-DH1 (M)",
+    "127357": "Gröden-SG (M)",
+    "127360": "Val d'Isère-DH (W)",
+    "127356": "Gröden-DH2 (M)",
+    "127361": "Val d'Isère-SG (W)",
+    "127362": "Alta Badia-RTL (M)",
+    "127363": "Alta Badia-SL (W)"
 }
 
 # Liste der Nationen, die beschriftet werden sollen (Namen müssen zum Mapping oben passen)
