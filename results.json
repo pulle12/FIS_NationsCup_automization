@@ -359,27 +359,98 @@
     },
     {
         "race_id": 127339,
-        "points": {}
+        "points": {
+            "SUI": 275,
+            "ITA": 210,
+            "FRA": 101,
+            "FIN": 26,
+            "USA": 24,
+            "AUT": 54,
+            "GER": 22,
+            "CAN": 8,
+            "NOR": 4,
+            "SLO": 2
+        }
     },
     {
         "race_id": 127357,
-        "points": {}
+        "points": {
+            "CZE": 100,
+            "SUI": 160,
+            "ITA": 130,
+            "FRA": 95,
+            "AUT": 120,
+            "CAN": 74,
+            "GER": 16,
+            "USA": 18,
+            "NOR": 4,
+            "SLO": 3
+        }
     },
     {
         "race_id": 127360,
-        "points": {}
+        "points": {
+            "AUT": 159,
+            "GER": 106,
+            "USA": 128,
+            "SLO": 50,
+            "ITA": 126,
+            "CZE": 40,
+            "FRA": 22,
+            "NOR": 38,
+            "SUI": 32,
+            "NZL": 10,
+            "CAN": 8
+        }
     },
     {
         "race_id": 127356,
-        "points": {}
+        "points": {
+            "SUI": 276,
+            "ITA": 165,
+            "FRA": 131,
+            "FIN": 26,
+            "AUT": 65,
+            "GER": 20,
+            "USA": 27,
+            "CHI": 6,
+            "CAN": 4,
+            "SWE": 1
+        }
     },
     {
         "race_id": 127361,
-        "points": {}
+        "points": {
+            "ITA": 189,
+            "NZL": 80,
+            "USA": 91,
+            "FRA": 89,
+            "AUT": 107,
+            "SLO": 36,
+            "CZE": 29,
+            "GER": 34,
+            "NOR": 18,
+            "CAN": 12,
+            "SUI": 39
+        }
     },
     {
         "race_id": 127362,
-        "points": {}
+        "points": {
+            "AUT": 194,
+            "BRA": 80,
+            "NOR": 118,
+            "GER": 54,
+            "SUI": 102,
+            "USA": 36,
+            "SLO": 22,
+            "ITA": 28,
+            "BEL": 14,
+            "FRA": 40,
+            "AND": 12,
+            "SWE": 10,
+            "ESP": 7
+        }
     },
     {
         "race_id": 127363,
