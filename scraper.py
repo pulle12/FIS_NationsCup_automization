@@ -1,6 +1,7 @@
 import json
 import os
 import time
+import re
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -20,14 +21,75 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 
 season_results_list = []
 
-# Deine IDs
-season_races = [
+SEASON_CODE = "2026"
+CATEGORY_CODE = "WC"
+RACE_ID_FILE = "race_ids_2026.json"
+
+# Fallback-Liste falls keine IDs-Datei vorhanden ist
+FALLBACK_RACE_IDS = [
     127331, 127332, 127333, 127334, 127335, 127336,
     127440, 127441, 127442, 127443,
     127340, 127341, 127342, 127343, 127344, 127347, 127348, 127350, 127349, 127351, 127352, 127339, 127357, 127360, 127356, 127361, 127362, 127363
 ]
-# Link für die FIS-Seite zum schnelleren Suchen und Hinzufügen neuer IDs: 
-# https://www.fis-ski.com/DB/alpine-skiing/calendar-results.html?eventselection=&place=&sectorcode=AL&seasoncode=2026&categorycode=WC&disciplinecode=&gendercode=&racedate=&racecodex=&nationcode=&seasonmonth=X-2026&saveselection=-1&seasonselection=
+
+
+def load_race_ids() -> list[int]:
+    path = os.path.join(os.path.dirname(__file__), RACE_ID_FILE)
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as fh:
+            try:
+                data = json.load(fh)
+                # akzeptiere {"race_ids": [...]} oder direkt [...]
+                if isinstance(data, dict) and "race_ids" in data:
+                    return list(map(int, data["race_ids"]))
+                if isinstance(data, list):
+                    return list(map(int, data))
+            except Exception:
+                pass
+    return FALLBACK_RACE_IDS
+
+
+def extract_meta(soup: BeautifulSoup) -> dict:
+    text_blob = " ".join(el.get_text(" ", strip=True) for el in soup.select("div.event-header, div.event-header__name, div.event-header__subtitle"))
+    discipline = None
+    gender = None
+    date = None
+    location = None
+
+    # Disziplin per Stichwort
+    for key in ["Downhill", "Super-G", "Super G", "Giant Slalom", "Slalom", "Parallel", "Alpine Combined", "Combined", "GS", "SL", "DH", "SG", "PGS", "AC"]:
+        if key.lower() in text_blob.lower():
+            discipline = key
+            break
+
+    # Gender-Heuristik
+    low = text_blob.lower()
+    if "men" in low or "m." in low:
+        gender = "M"
+    if "ladies" in low or "women" in low or "w." in low:
+        gender = "W"
+
+    # Datum (einfaches Muster)
+    m_date = re.search(r"(\d{1,2}[./-]\d{1,2}[./-]\d{2,4})", text_blob)
+    if m_date:
+        date = m_date.group(1)
+
+    # Location: erster Teil vor Komma falls vorhanden
+    if "," in text_blob:
+        location = text_blob.split(",", 1)[0].strip()
+
+    return {
+        "season": SEASON_CODE,
+        "category": CATEGORY_CODE,
+        "discipline": discipline or "unknown",
+        "gender": gender or "unknown",
+        "date": date,
+        "location": location,
+    }
+
+
+season_races = load_race_ids()
+print(f"Gefundene Race-IDs (Datei/Fallback): {len(season_races)} -> {season_races}")
 
 print("Starte Scraping pro Rennen mit strenger Punkte-Filterung...")
 

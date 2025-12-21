@@ -1,8 +1,13 @@
 @echo off
-title Ski Alpin Nationencup 25/26 Wallpaper Engine
-echo Starte Wallpaper Engine...
+setlocal
+set PY="%~dp0.venv\Scripts\python.exe"
+pushd %~dp0
 
-python "scraper.py"
-python "ski_nationencup_25-26.py"
+echo === GUI starten: Viewer und Steuerung ===
+%PY% gui.py
 
+echo Hinweis: IDs laden & Scrape bitte in der GUI starten.
+
+popd
+echo Fertig. Fenster schliessen mit beliebiger Taste.
 pause

@@ -1,76 +1,59 @@
-# ⛷️ FIS Ski Alpin World Cup - Live Wallpaper Engine
+# ⛷️ Ski Alpin Nationencup 25/26
 
-Dieses Projekt ist eine vollautomatisierte Lösung, um den **FIS Ski Alpin Nationencup** zu tracken und den aktuellen Saisonverlauf als **dynamisches Windows-Hintergrundbild** darzustellen.
+Dieses Projekt sammelt Weltcup-Ergebnisse von der FIS-Seite, aggregiert Nationenpunkte und bietet eine kleine GUI zum Filtern (Disziplin/Geschlecht) und zum Steuern des Datenlaufs.
 
-Es besteht aus einem robusten Web-Scraper, der Live-Daten der FIS-Webseite extrahiert, und einem Visualisierungs-Modul, das diese Daten in ästhetische Graphen verwandelt und direkt in das Desktop-Wallpaper integriert.
+## Komponenten
 
-![Preview Graph](https://github.com/user-attachments/assets/f20790f4-3229-440f-be3e-53b035ba0f8c)
+- **`scraper.py`**: Lädt Ergebnisse für bekannte Race-IDs, speichert strukturierte `results.json` mit Metadaten je Rennen.
+- **`fetch_race_ids.py`**: Klickt durch die FIS Kalender-Results Seite, öffnet Events und deren Rennen, extrahiert `raceid` aus der Ergebnis-URL und schreibt `race_ids_2026.json`.
+- **`gui.py`**: Mini-Oberfläche zum Laden/Filtern von `results.json` sowie Button „IDs neu laden“ (ruft `fetch_race_ids.py`).
+- **`automate.bat`**: Startet die GUI; von dort kannst du IDs laden und den Scrape manuell anstoßen.
+- **`ski_nationencup_25-26.py`**: Deine Auswertung/Visualisierung basierend auf `results.json`.
 
-## ✨ Features
+## Ergebnisse-Format
 
-*   **Advanced Web Scraping (Selenium):** Umgeht Probleme mit dynamisch geladenem JavaScript-Content auf der FIS-Webseite, an denen herkömmliche Bibliotheken (wie `requests`) scheitern.
-*   **Intelligente Datenbereinigung:** Filtert fehlerhafte Datenpunkte (z.B. FIS-Codes oder Laufzeiten, die fälschlicherweise als Punkte interpretiert werden) durch eine strikte Weltcup-Punkte-Logik (`<= 100`).
-*   **Daten-Visualisierung (Matplotlib & Pandas):** Erstellt professionelle Liniendiagramme des Saisonverlaufs (Kumulierte Punkte).
-    *   *Smart Labels:* Verhindert das Überlappen von Beschriftungen, wenn Nationen punktgleich sind.
-    *   *Custom Styling:* Offizielle Landesfarben für Top-Nationen, Transparenz für kleinere Nationen.
-    *   *Chronologische Achse:* Korrekte Darstellung der Rennen unabhängig von nicht-sequenziellen Race-IDs.
-*   **Live Wallpaper Integration:** Manipuliert das Windows-Hintergrundbild (`ctypes`), um das Diagramm nahtlos in ein bestehendes Wallpaper einzubetten.
+`results.json` ist ein Objekt:
 
-## 📂 Projektstruktur
+```
+{
+    "season": "2026",
+    "category": "WC",
+    "generated_at": "YYYY-MM-DDThh:mm:ss",
+    "races": [
+        {
+            "meta": { "season": "2026", "category": "WC", "discipline": "GS", "gender": "M", "date": "dd.mm.yyyy", "location": "Ort", "race_id": 127353 },
+            "points": { "AUT": 80, "SUI": 45, ... }
+        },
+        ...
+    ]
+}
+```
 
-Das Projekt besteht aus vier Hauptkomponenten:
+## Installation
 
-### 1. `scraper.py` (Data Extraction)
-Das Herzstück der Datenbeschaffung.
-*   Nutzt **Selenium WebDriver**, um die resultatsbasierten DOM-Elemente der FIS-Seite zu laden.
-*   Iteriert durch eine Liste von Race-IDs der aktuellen Saison.
-*   Extrahiert Platzierungen und Punkte pro Nation.
-*   Exportiert bereinigte Daten in eine strukturierte JSON-Datei.
+```powershell
+# venv empfohlen
+python -m venv .venv
+.venv\Scripts\activate
 
-### 2. `visualizer.py` (Data Processing & UI)
-Verarbeitet die Rohdaten und aktualisiert den Desktop.
-*   Lädt die `results.json`.
-*   Berechnet mit **Pandas** die kumulierten Summen (Running Total) pro Nation.
-*   Erstellt den Graphen mit **Matplotlib** (inkl. "Smart Labeling" Logik für USA/NOR Konflikte).
-*   Nutzt **Pillow (PIL)**, um den Graphen auf ein Basis-Bild zu kleben.
-*   Setzt das neue Bild als Windows-Wallpaper.
+python -m pip install selenium webdriver-manager pandas matplotlib pillow
+```
 
-### 3. `results.json` (Database)
-Speichert den aktuellen Stand der Saison in einem maschinenlesbaren Format.
-*   Struktur: Liste von Events mit zugehöriger Race-ID und den erreichten Punkten pro Nation an diesem Tag.
+## Nutzung
 
-### 4. `automate.bat` (Automation)
-Ein einfaches Batch-Skript, um den Prozess im Hintergrund zu starten (z.B. via Windows Task Scheduler oder Autostart), damit das Wallpaper immer aktuell bleibt, ohne manuelles Eingreifen.
+- Starte die GUI:
+```powershell
+.venv\Scripts\python.exe gui.py
+```
+- IDs neu laden: Button „IDs neu laden“ in der GUI (legt/aktualisiert `race_ids_2026.json`).
+- Ergebnisse scrapen: `scraper.py` nutzen; der Scraper lädt die Race-IDs aus `race_ids_2026.json` oder fällt auf eine Fallback-Liste zurück.
+- Auswertung: `ski_nationencup_25-26.py` ausführen oder in die GUI integrieren.
 
-## 🛠️ Technologien & Requirements
+## Hinweise
 
-*   **Python 3.10+**
-*   **Selenium** (Browser Automation)
-*   **Pandas** (Dataframes & Berechnung)
-*   **Matplotlib** (Plotting)
-*   **Pillow** (Image Manipulation)
-*   **Chrome WebDriver**
-
-## 🚀 Installation & Nutzung
-
-1.  **Repository klonen:**
-    ```bash
-    git clone https://github.com/DEIN_USER/projekt_ski.git
-    ```
-
-2.  **Abhängigkeiten installieren:**
-    ```bash
-    pip install pandas matplotlib selenium pillow webdriver-manager
-    ```
-
-3.  **Konfiguration:**
-    *   Pfade in den Python-Skripten anpassen (`BASE_IMAGE_PATH` für dein Wallpaper).
-    *   Ggf. Race-IDs im Scraper für die neue Saison aktualisieren.
-
-4.  **Starten:**
-    *   Scraping starten: `python scraper.py`
-    *   Visualisierung starten: `python visualizer.py`
-    *   Oder alles zusammen über `automate.bat`.
+- Die FIS-Seite lädt Inhalte dynamisch. Der ID-Fetch nutzt Klicks, Scrollen und Wartezeiten; falls die Seite blockt, erneut versuchen.
+- Trainings können aktuell mitgesammelt werden; Filterung ist möglich, wenn gewünscht.
+- `automate.bat` startet die GUI, damit du entscheiden kannst, ob IDs neu geladen werden sollen.
 
 ---
-*Created with ❤️ for Ski Alpin Fans.*
+Viel Spaß beim Entwickeln und Auswerten!
