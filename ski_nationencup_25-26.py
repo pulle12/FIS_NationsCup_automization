@@ -43,7 +43,9 @@ NATION_COLORS = {
     "Brasilien": "#17C005", 
     "Slowenien": "#0066B2",
     "Belgien": "#FFDD00",
-    "Großbritannien": "#00247D"
+    "Großbritannien": "#00247D",
+    "Tschechien": "#D7141A",
+    "Finnland": "#003580"
 }
 
 # Falls eine ID fehlt, zeigt der Code automatisch die Nummer an
@@ -75,7 +77,9 @@ RACE_ID_TO_NAME = {
     "127356": "Gröden-DH2 (M)",
     "127361": "Val d'Isère-SG (W)",
     "127362": "Alta Badia-RTL (M)",
-    "127363": "Alta Badia-SL (W)"
+    "127363": "Alta Badia-SL (W)",
+    "127364": "Livigno-SG (M)",
+    "127365": "Semmering-RTL (W)"
 }
 
 # Liste der Nationen, die beschriftet werden sollen (Namen müssen zum Mapping oben passen)
